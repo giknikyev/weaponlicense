@@ -3,318 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Перевірка гравців сервера «UKRAINE RP» на володіння ліцензії на вогнепальну зброю</title>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <title>Перевірка гравців сервера UKRAINE RP</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <style>
-       * 
-          body {  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2e2e3d, #1a1a27);
-            color: #fff;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
+            background-color: #f0f0f0;
         }
-
         .container {
-            width: 90%;
-            max-width: 800px;
-            background: #1f1f2e;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
+            text-align: center;
         }
-
-       
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .link-button {
+            display: inline-flex;
             align-items: center;
-            padding: 15px 20px;
-            background: #29293d;
-            position: sticky;
-            top: 0;
-        }
-
-        .top-bar .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .top-bar .buttons a {
-            margin-left: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
             text-decoration: none;
-            background: #6a0dad;
-            color: #fff;
-            padding: 8px 15px;
             border-radius: 5px;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
         }
-
-        .top-bar .buttons a:hover {
-            background: #530b82;
+        .link-button:hover {
+            background-color: #45a049;
         }
-        .content {
-            text-align: center;
-            padding: 30px 20px;
+        .arrow {
+            margin-left: 10px;
+            transition: transform 0.3s;
         }
-
-        .content h1 {
-            font-size: 28px;
-            color: #b399ff;
-            margin-bottom: 20px;
-        }
-
-       
-        .search-box {
-            margin-top: 30px;
-        }
-
-        .search-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 12px;
-            font-size: 16px;
-            margin-bottom: 8px;
-            border: none;
-            border-radius: 6px;
-            outline: none;
-            background: #2e2e3d;
-            color: #fff;
-            box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4);
-            transition: 0.3s ease;
-        }
-
-        .search-box input:focus {
-            box-shadow: 0 0 10px #6a0dad;
-        }
-
-        .search-box button {
-            background-color: #6a0dad;
-            color: #fff;
-            border: none;
-            padding: 8px 20px;
-            font-size: 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .search-box button:hover {
-            background-color: #530b82;
-        }
-
-        .modal {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: #1f1f2e;
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 500px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content p {
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .modal-content button {
-            background: #6a0dad;
-            color: #fff;
-            border: none;
-            padding: 8px 18px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .modal-content button:hover {
-            background: #530b82;
-        }
-
-        .license-info {
-            text-align: center;
-            margin-top: 20px;
-            background: #29293d;
-            padding: 20px;
-            border-radius: 10px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .license-info h2 {
-            color: #b399ff;
-        }
-
-        .license-info p {
-            margin: 5px 0;
-        }
-
-        .error {
-            color: #ff4d4d;
-            font-weight: bold;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .link-button:hover .arrow {
+            transform: translateX(10px);
         }
     </style>
 </head>
 <body>
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <p>Щоб дізнатися, чи є ліцензія у гравця, введіть його username в поле пошуку та натисніть «ПЕРЕВІРИТИ».</p>
-            <button onclick="closeModal()">ОК</button>
-        </div>
-    </div>
-    <div class="title-container" style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 20px;">
-        <div class="title" style="font-size: 24px; color: #b399ff; font-weight: bold; margin-right: 10px;">
-            UKRAINE RP
-        </div>
-        <div class="buttons">
-            <a href="https://x.com/UkraineRP_EH" target="_blank" style="margin-left: 10px; text-decoration: none; background: #6a0dad; color: #fff; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Twitter</a>
-            <a href="https://t.me/+oQRx4b9ruwBjOTU0" target="_blank" style="margin-left: 10px; text-decoration: none; background: #6a0dad; color: #fff; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Telegram</a>
-        </div>
-    </div>
-    <p>
-    
-    </p>
     <div class="container">
-        <div class="top-bar">
-            <div class="logo">Ліцензія на вогнепальну зброю</div>
-            <div class="buttons">
-                <a href="https://t.me/weaponlicense_bot">ОТРИМАТИ</a>
-            </div>
-        </div>
-        <div class="content">
-            <h1>Перевірка Ліцензії</h1>
-            <div class="search-box">
-                <input type="text" id="username" placeholder="Введіть username гравця" oninput="clearResults()">
-                <button onclick="checkLicense()">ПЕРЕВІРИТИ</button>
-            </div>
-            <div id="result" class="license-info" style="display: none;"></div>
-        </div>
+        <h1>САЙТ ТЕПЕР ТУТ</h1>
+        <a href="https://giknikyev.github.io/playerverification/" class="link-button">
+            ПЕРЕЙТИ НА САЙТ
+            <span class="arrow">&#8594;</span>
+        </a>
     </div>
-
-    <script>
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-
-        const players = {
-            "Yezh1lya": { licenseStatus: "Дійсна", licenseExpiry: "01.03.2025", workplace: "Адміністратор сервера", telegramId: "5109532913" },
-            "Kurdzhos999": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Охоронець суду", telegramId: "6853741964" },
-            "Pit_uk": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Охоронець суду", telegramId: "7811050819" },
-            "MAXIM4IK123098": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Директор ДБР", telegramId: "6053516349" },
-            "Global20207": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "1431122546" },
-            "cheater777_Yt": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "5696745197" },
-            "kingfogfok": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Заступник Директора ДБР", telegramId: "842515350" },
-            "arina_mike141": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "7505928620" },
-            "artemMelnichenko2013": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "5242336088" },
-            "kakashkavurybashkaa": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "5249364290" },
-            "Zeon_18": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "6429372531" },
-            "nsx1987": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "563810354" },
-            "gggiiky83": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "6202700499" },
-            "Maksimka_228005": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "1760965523" },
-            "w0ndexq": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник ДБР", telegramId: "6684510288" },
-
-            "Palamarka": { licenseStatus: "Дійсна", licenseExpiry: "00.00.0000", workplace: "Начальник Оперативного відділу", telegramId: "1902876079" },
-
-            "Kedvirm": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Працівник СБС", telegramId: "7811987070" },
-            "nazar1cyber2sportman": { licenseStatus: "Дійсна", licenseExpiry: "05.04.2025", workplace: "Голова СБС", telegramId: "6194910294" },
-            "": { licenseStatus: "Дійсна", licenseExpiry: "05.03.2025", workplace: "Працівник СБС", telegramId: "" },
-            "": { licenseStatus: "Дійсна", licenseExpiry: "05.03.2025", workplace: "Працівник СБС", telegramId: "" },
-        };
-
-        function checkLicense() { 
-    const username = document.getElementById('username').value.trim().toLowerCase();
-    const resultDiv = document.getElementById('result');
-    if (!username) {
-        resultDiv.innerHTML = `<p class="error">Введіть username гравця.</p>`;
-        resultDiv.style.display = 'block';
-        return;
-    }
-
-    let foundPlayer = null;
-
-    for (let player in players) {
-        if (player.toLowerCase() === username) { 
-            foundPlayer = players[player];
-            break;
-        }
-    }
-
-    if (foundPlayer) {
-        const currentDate = new Date();
-        const expiryDate = new Date(foundPlayer.licenseExpiry.split('.').reverse().join('-')); 
-        const isActive = currentDate <= expiryDate;
-
-        resultDiv.innerHTML = `<p><i>Ліцензію виявлено..</i></p>`;
-        resultDiv.style.display = 'block';
-
-        if (isActive) {
-    resultDiv.innerHTML = `
-        <h2>ІНФОРМАЦІЯ ПРО ЛІЦЕНЗІЮ
-        <br><small>СТАТУС:</small> <strong><small>ДІЙСНА</strong></small> </h2>
-        <p>Username: <strong>${username}</strong></p>
-        <p>Telegram: <strong>${foundPlayer.telegramId}</strong></p>
-        <p>Термін: <strong>до ${foundPlayer.licenseExpiry}</strong></p>
-        <p>Роль: <strong>${foundPlayer.workplace}</strong></p>
-    `;
-} else {
-    resultDiv.innerHTML = `
-        <h2>ІНФОРМАЦІЯ ПРО ЛІЦЕНЗІЮ
-        <br><small>СТАТУС:</small> <strong><small>НЕАКТИВНА</strong></small></h2>
-        <p><b>Для поновлення зв'яжіться з адміністратором.</b></p>
-        <p>Username: <strong>${username}</strong></p>
-        <p>Telegram: <strong>${foundPlayer.telegramId}</strong></p>
-        <p>Роль: <strong>${foundPlayer.workplace}</strong></p>
-    `;
-}
-
-    } else {
-        resultDiv.innerHTML = `<p class="error">У <strong>${username}</strong> ліцензія відсутня.</p>`;
-        resultDiv.style.display = 'block';
-    }
-}
-
-
-        function clearResults() {
-    document.getElementById('result').style.display = 'none';
-        }
-    </script>
-<p></p>
-           <div class="footer" style="text-align: center; margin-top: 40px; padding: 20px; background: #29293d; border-radius: 10px;">
-            <p style="color: #fff; font-size: 14px;">
-                Власники ліцензії на зброю не можуть використовувати зброю для агресії або нападу на інших гравців, за винятком самооборони або для захисту інших осіб від реальної загрози їхньому життю чи здоров'ю. Усі випадки використання зброї мають бути законними та виправданими. Використання зброї для скоєння злочинів або провокацій суворо заборонено. Покарання за недотримання вимог - конфіскація ліцензії та штраф розміром 7 000€.
-            </p>
-            <p style="color: #b399ff; font-size: 14px;">© 2025 Ukraine RP. Всі права захищені.</p>
-        </div>
-
 </body>
 </html>
